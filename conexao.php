@@ -35,3 +35,9 @@ function executarSQL($conexao, $sql)
     }
     return $resultado;
 }
+function logar()
+{
+    if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
+        header('location:logout.php');
+    } 
+}

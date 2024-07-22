@@ -1,6 +1,7 @@
 <?php
 include "conexao.php";
 $conexao = conectar();
+logar();
 $sql = "SELECT * FROM arquivo";
 $executarSQL = executarSQL($conexao,$sql);
 
