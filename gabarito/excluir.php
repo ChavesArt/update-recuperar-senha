@@ -1,7 +1,7 @@
 <?php
 session_start();
 $id = $_GET['id'];
-$conexao = mysqli_connect("localhost", "root", "", "upload");
+include "../conexao.php";
 $sql = "SELECT * FROM arquivo WHERE id_arquivo = $id";
 $resultSet = mysqli_query($conexao, $sql);
 $arquivo = mysqli_fetch_assoc($resultSet);

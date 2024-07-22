@@ -1,6 +1,6 @@
 <?php
 $pastaDestino = "/uploads/";
-
+include "conexao.php";
 // verificar se o tamanho do arquivo é maior que 2 MB
 if ($_FILES['arquivo']['size'] > 2000000) {  // condição de guarda 👮
     echo "O tamanho do arquivo é maior que o limite permitido. Limite máximo: 2 MB.";
@@ -34,7 +34,7 @@ $fezUpload = move_uploaded_file(
     __DIR__ . $pastaDestino . $nomeArquivo . "." . $extensao
 );
 if ($fezUpload == true) {
-    $conexao = mysqli_connect("localhost", "root", "", "upload-arquivos");
+    $conexao = conectar();
     $sql = "INSERT INTO arquivo (nome_arquivo) VALUES ('$nomeArquivo.$extensao')";
     $resultado = mysqli_query($conexao, $sql);
     if ($resultado != false) {

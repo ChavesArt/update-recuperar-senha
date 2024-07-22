@@ -2,8 +2,9 @@
 include "conexao.php";
 $conexao = conectar();
 logar();
-$sql = "SELECT * FROM arquivo";
+$sql = "SELECT * FROM usuario where id_usuario ='$_SESSION['id_usuario']";
 $executarSQL = executarSQL($conexao,$sql);
+var_dump($sql);
 
 ?>
 <!DOCTYPE html>

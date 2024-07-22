@@ -52,7 +52,7 @@ if ($fazerUpload) {
         __DIR__ . $pastaArquivoExtensao
     );
     if ($deuCerto) {
-        $conexao = mysqli_connect("localhost", "root", "", "upload");
+        $conexao = conectar();
         if (!isset($_POST['id_arquivo'])) { // novo arquivo
             $sql = "INSERT INTO arquivo (nome) VALUES ('$nomeArquivoExtensao')";
             $result = mysqli_query($conexao, $sql);

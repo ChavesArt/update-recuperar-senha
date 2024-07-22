@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastra-se</title>
+    <title>Faça login</title>
     <?php include ("links.php"); ?>
 </head>
 <body>
-<form>
+<form action="index.php" method="post">
     <div class="container">
-
+        
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="nome">
+        </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="exampleInputPassword1" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="senha">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <p>Ainda não é cadastrado?<a href="formcad.php">Cadastrar-se</a></p>
+        <a href="recuperar_senha.php">Esqueceu a senha?</a> <br>
+        <input type="submit" class="btn btn-primary" value ="Logar">
     </div>
     </form>
 </body>

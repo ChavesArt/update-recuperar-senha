@@ -1,8 +1,8 @@
 <?php
 session_start();
 $id = filter_input(INPUT_GET, 'id');
-
-$conexao = mysqli_connect("localhost", "root", "", "up_recuperar_senha");
+include "../conexao.php";
+$conexao = conectar();
 $sql = "SELECT * FROM arquivo";
 $resultSet = mysqli_query($conexao, $sql);
 $arquivos = mysqli_fetch_all($resultSet, MYSQLI_ASSOC);
@@ -14,7 +14,7 @@ if (!is_null($id)) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
