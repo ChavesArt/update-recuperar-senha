@@ -9,7 +9,7 @@
  */
 function conectar()
 {
-    require_once "config.php";
+    include "config.php";
     $conexao = mysqli_connect(
         $config['host'],
         $config['user'],
@@ -35,13 +35,11 @@ function executarSQL($conexao, $sql)
     }
     return $resultado;
 }
-function logar()
+function logar($email,$senha)
 {
-    if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha']) == true)) {
 
-        $sql = "SELECT * FROM usuario WHERE email = ".$_SESSION['email']. "AND senha=". $_SESSION['senha'];
+        $sql = "SELECT * FROM usuario WHERE email = '$email' AND senha = '$senha'";
         $result = mysqli_query(conectar(), $sql);
         $dado = mysqli_fetch_assoc($result);   
         header('location:logout.php');
-    } 
 }

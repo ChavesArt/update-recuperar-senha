@@ -1,12 +1,21 @@
 <?php
 session_start();
-include "conexao.php";
-$conexao = conectar();
-logar();
-$sql = "SELECT * FROM usuario where id_usuario =" . $_SESSION['id_usuario'];
-$executarSQL = executarSQL($conexao,$sql);
-var_dump($sql);
+if (!isset($_SESSION['email'])) {
+  echo"ENTROU";
+  header("location:login.php");
+}
+else{  $email1=$_SESSION['email'];}
 
+  include "conexao.php";
+  $conexao = conectar();
+  // logar($_SESSION['email'],$_SESSION['senha']);
+  $sql = "SELECT * FROM usuario where id_usuario =" . $_SESSION['id_usuario'];
+  $executarSQL = executarSQL($conexao,$sql);
+  var_dump($sql);
+  $sql2 = "SELECT * FROM usuario WHERE email = '$email1'"; 
+  $result2 = mysqli_query($conecta, $sql2);
+  $dados = $result['id_usuario'];
+  
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -19,6 +28,7 @@ var_dump($sql);
 </head>
 
 <body>
+
 <section class="vh-100" style="background-color: #f4f5f7;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -86,26 +96,26 @@ var_dump($sql);
         </thead>
         <tbody>
             <?php
-            foreach ($arquivos as $arquivo) {
-                $arq = $arquivo['nome_arquivo'];
-                echo "<tr>"; // iniciar a linha
-                echo "<td><img src='uploads/$arq' width='100px' height='100px'></td>"; // exibe imagem
-                echo "<td><a href='uploads/$arq'>$arq</a></td>"; // 1ª coluna com o nome do arquivo
-                echo "<td>"; // iniciar a 2ª coluna
-                echo "<a "; // abriu o link (abriu a tag a)
-                echo "href='alterar.php?nome_arquivo=$arq'>"; // inseriu o link
-                echo "Alterar"; // imprimiu o texto da tag a
-                echo "</a>"; // fechei a tag a (fechei o link)
-                echo "</td>"; // fechei a 2ª coluna
-                echo "<td>"; // abri a 3ª coluna
-                echo "<button "; // abrir o botão
-                echo "onclick="; // criou o atributo onclick
-                echo "'excluir(\"$arq\");'>"; // chamamos a função excluir
-                echo "Excluir"; // mostrar o texto do botão
-                echo "</button>"; // fechar o botão
-                echo "</td>"; // fechar a 3ª coluna
-                echo "</tr>"; // fechar a linha
-            }
+            // foreach ($arquivos as $arquivo) {
+            //     $arq = $arquivo['nome_arquivo'];
+            //     echo "<tr>"; // iniciar a linha
+            //     echo "<td><img src='uploads/$arq' width='100px' height='100px'></td>"; // exibe imagem
+            //     echo "<td><a href='uploads/$arq'>$arq</a></td>"; // 1ª coluna com o nome do arquivo
+            //     echo "<td>"; // iniciar a 2ª coluna
+            //     echo "<a "; // abriu o link (abriu a tag a)
+            //     echo "href='alterar.php?nome_arquivo=$arq'>"; // inseriu o link
+            //     echo "Alterar"; // imprimiu o texto da tag a
+            //     echo "</a>"; // fechei a tag a (fechei o link)
+            //     echo "</td>"; // fechei a 2ª coluna
+            //     echo "<td>"; // abri a 3ª coluna
+            //     echo "<button "; // abrir o botão
+            //     echo "onclick="; // criou o atributo onclick
+            //     echo "'excluir(\"$arq\");'>"; // chamamos a função excluir
+            //     echo "Excluir"; // mostrar o texto do botão
+            //     echo "</button>"; // fechar o botão
+            //     echo "</td>"; // fechar a 3ª coluna
+            //     echo "</tr>"; // fechar a linha
+            // }
             ?>
         </tbody>
     </table>

@@ -7,7 +7,7 @@
     <?php include ("links.php"); ?>
 </head>
 <body>
-<form action="index.php" method="post">
+<form action="testLogin.php" method="post">
     <div class="container">
         
         <div class="mb-3">
