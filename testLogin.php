@@ -4,7 +4,6 @@ session_start();
 if (!empty($_POST['email']) and !empty($_POST['senha'])) {
     include('conexao.php');
     $conecta = conectar();
-    $nome = $_POST['nome'];
     $senha = $_POST['senha'];
     $email = $_POST['email'];
 
@@ -25,7 +24,6 @@ if (!empty($_POST['email']) and !empty($_POST['senha'])) {
         $_SESSION['id_usuario'] = $id;
         $_SESSION['email'] = $email;
         $_SESSION['senha'] = $senha;
-        $_SESSION['nome'] = $nome;
         header('location:index.php');
     }
 } else {

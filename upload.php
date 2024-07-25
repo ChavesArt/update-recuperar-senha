@@ -28,21 +28,14 @@ if (getimagesize($_FILES['arquivo']['tmp_name']) === false) {
 
 $nomeArquivo = uniqid();
 
-// se deu tudo certo até aqui, faz o upload
-$fezUpload = move_uploaded_file(
-    $_FILES['arquivo']['tmp_name'],
-    __DIR__ . $pastaDestino . $nomeArquivo . "." . $extensao
-);
-if ($fezUpload == true) {
-    $conexao = conectar();
-    $sql = "INSERT INTO usuario (arquivo) VALUES ('$nomeArquivo.$extensao')";
-    $resultado = mysqli_query($conexao, $sql);
-    if ($resultado != false) {
         // se for uma alteração de arquivo
         if (isset($_POST['arquivo'])) {
+            $arqNovo = $_POST['arquivo'];
+            $id_usuario = $_SESSION['id_usuario'];
+            $sql5="INSERT INTO usuario set arquivo='$arqNovo' WHERE id_usuario = '$id_usuario'";
             $apagou = unlink(__DIR__ . $pastaDestino . $_POST['arquivo']);
             if ($apagou == true) {
-                $sql = "DELETE FROM arquivo WHERE id_usuario='" 
+                $sql = "DELETE FROM usuario WHERE id_usuario='" 
                         . $_SESSION['id_usuario'] . "'";
                 $resultado2 = mysqli_query($conexao, $sql);
                 if ($resultado2 == false) {
@@ -55,9 +48,4 @@ if ($fezUpload == true) {
             }
         }
         header("Location: index.php");
-    } else {
-        echo "Erro ao registrar o arquivo no banco de dados.";
-    }
-} else {
-    echo "Erro ao mover arquivo.";
-}
+     

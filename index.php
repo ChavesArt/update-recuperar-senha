@@ -6,7 +6,8 @@ if (!isset($_SESSION['email'])) {
 
   include "conexao.php";
   $conexao = conectar();
-  $sql ="SELECT * FROM  usuario";
+  $email = $_SESSION['email'];
+  $sql ="SELECT * FROM  usuario where email= '$email'";
   $arquivos = executarSQL($conexao,$sql); 
 ?>
 <!DOCTYPE html>
@@ -29,15 +30,16 @@ if (!isset($_SESSION['email'])) {
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center text-white"
               style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-              <?php foreach ($arquivos as $arquivo) {
-                $arq = $arquivo['arquivo'];
-                var_dump($arq);
-                die();
-                  echo "<tr>"; // iniciar a linha
-                  echo "<td><img src='uploads/$arq' width='170px' height='150px'></td>";
-                  echo "</tr>";
-                
-              }
+  
+        
+              <?php 
+              $dados = mysqli_fetch_assoc($arquivos);
+                $arq = $dados['arquivo'];
+        
+                echo "<tr>"; // iniciar a linha
+                echo "<td><img src='uploads/$arq' width='170px' height='170px'></td>"; // exibe imagem
+                echo "</tr>";
+            
               ?>
               <h5>Marie Horwitz</h5>
               <i class="far fa-edit mb-5"></i>
@@ -53,8 +55,7 @@ if (!isset($_SESSION['email'])) {
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Phone</h6>
-                    <p class="text-muted"><a href='alterar.php?arquivo=$arq'>Alterar</a>
-</p>
+                    <p class="text-muted"> <?php echo "<a href='alterar.php?arquivo=$arq'>Alterar</a> </p>"; ?>
                   </div>
                 </div>
                 <h6>Projects</h6>
