@@ -35,11 +35,3 @@ function executarSQL($conexao, $sql)
     }
     return $resultado;
 }
-function logar($email,$senha)
-{
-
-        $sql = "SELECT * FROM usuario WHERE email = '$email' AND senha = '$senha'";
-        $result = mysqli_query(conectar(), $sql);
-        $dado = mysqli_fetch_assoc($result);   
-        header('location:logout.php');
-}

@@ -35,15 +35,15 @@ $fezUpload = move_uploaded_file(
 );
 if ($fezUpload == true) {
     $conexao = conectar();
-    $sql = "INSERT INTO arquivo (nome_arquivo) VALUES ('$nomeArquivo.$extensao')";
+    $sql = "INSERT INTO usuario (arquivo) VALUES ('$nomeArquivo.$extensao')";
     $resultado = mysqli_query($conexao, $sql);
     if ($resultado != false) {
         // se for uma alteração de arquivo
-        if (isset($_POST['nome_arquivo'])) {
-            $apagou = unlink(__DIR__ . $pastaDestino . $_POST['nome_arquivo']);
+        if (isset($_POST['arquivo'])) {
+            $apagou = unlink(__DIR__ . $pastaDestino . $_POST['arquivo']);
             if ($apagou == true) {
-                $sql = "DELETE FROM arquivo WHERE nome_arquivo='" 
-                        . $_POST['nome_arquivo'] . "'";
+                $sql = "DELETE FROM arquivo WHERE id_usuario='" 
+                        . $_SESSION['id_usuario'] . "'";
                 $resultado2 = mysqli_query($conexao, $sql);
                 if ($resultado2 == false) {
                     echo "Erro ao apagar o arquivo do banco de dados.";

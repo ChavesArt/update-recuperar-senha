@@ -11,7 +11,8 @@ if (!empty($_POST['email']) and !empty($_POST['senha'])) {
 
     $sql = "SELECT * FROM usuario WHERE email = '$email' AND senha = '$senha'";
     $result = mysqli_query($conecta, $sql);
-   
+    $id = mysqli_fetch_assoc($result);
+    $id = $id['id_usuario'];
     
     
     if (mysqli_num_rows($result) < 1) {
@@ -21,13 +22,11 @@ if (!empty($_POST['email']) and !empty($_POST['senha'])) {
         unset($_SESSION['nome']);
         header('Location:login.php');
     } else {
-        $_SESSION['id_usuario'] = $email;
+        $_SESSION['id_usuario'] = $id;
         $_SESSION['email'] = $email;
         $_SESSION['senha'] = $senha;
         $_SESSION['nome'] = $nome;
-        // print_r($_SESSION);
         header('location:index.php');
-        // die();
     }
 } else {
     header('location:login.php');

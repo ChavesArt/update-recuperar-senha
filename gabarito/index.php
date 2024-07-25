@@ -3,12 +3,12 @@ session_start();
 $id = filter_input(INPUT_GET, 'id');
 include "../conexao.php";
 $conexao = conectar();
-$sql = "SELECT * FROM arquivo";
+$sql = "SELECT * FROM usuario";
 $resultSet = mysqli_query($conexao, $sql);
 $arquivos = mysqli_fetch_all($resultSet, MYSQLI_ASSOC);
 
 if (!is_null($id)) {
-    $sql2 = "SELECT * FROM arquivo WHERE id_arquivo = $id";
+    $sql2 = "SELECT * FROM usuario WHERE arquivo = $id";
     $resultSet2 = mysqli_query($conexao, $sql2);
     $arq = mysqli_fetch_assoc($resultSet2);
 }

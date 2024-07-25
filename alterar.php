@@ -1,5 +1,5 @@
 <?php
-$nome_arquivo = $_GET['nome_arquivo'];
+$nome_arquivo = $_GET['arquivo'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
