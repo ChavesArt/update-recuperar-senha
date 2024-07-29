@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pastaDestino = "/uploads/";
 include "conexao.php";
 // verificar se o tamanho do arquivo é maior que 2 MB
@@ -28,24 +29,29 @@ if (getimagesize($_FILES['arquivo']['tmp_name']) === false) {
 
 $nomeArquivo = uniqid();
 
-        // se for uma alteração de arquivo
-        if (isset($_POST['arquivo'])) {
-            $arqNovo = $_POST['arquivo'];
-            $id_usuario = $_SESSION['id_usuario'];
-            $sql5="INSERT INTO usuario set arquivo='$arqNovo' WHERE id_usuario = '$id_usuario'";
-            $apagou = unlink(__DIR__ . $pastaDestino . $_POST['arquivo']);
-            if ($apagou == true) {
-                $sql = "DELETE FROM usuario WHERE id_usuario='" 
-                        . $_SESSION['id_usuario'] . "'";
-                $resultado2 = mysqli_query($conexao, $sql);
-                if ($resultado2 == false) {
-                    echo "Erro ao apagar o arquivo do banco de dados.";
-                    die();
-                }
-            } else {
-                echo "Erro ao apagar o arquivo antigo.";
-                die();
-            }
+// se deu tudo certo até aqui, faz o upload
+$fezUpload = move_uploaded_file(
+    $_FILES['arquivo']['tmp_name'],
+    __DIR__ . $pastaDestino . $nomeArquivo . "." . $extensao
+);
+
+if ($fezUpload == true) {
+    $conexao = mysqli_connect("localhost", "root", "", "up_recuperar_senha");
+
+    // se for uma alteração de arquivo
+    $id_usuario = $_SESSION['id_usuario'];
+    $novoArquivo = $_POST['nome_arquivo'];
+    $apagou = unlink(__DIR__ . $pastaDestino . $_POST['nome_arquivo']);
+    if ($apagou == true) {
+        $sql = "UPDATE  usuario  SET  arquivo = '$nomeArquivo.$extensao'  WHERE id_usuario = $id_usuario ";
+        $resultado2 = mysqli_query($conexao, $sql);
+        if ($resultado2 == false) {
+            echo "Erro ao alterar o arquivo do banco de dados.";
+            die();
         }
-        header("Location: index.php");
-     
+    } else {
+        echo "Erro ao alterar o arquivo antigo.";
+        die();
+    }
+}
+header("Location: index.php");

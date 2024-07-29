@@ -19,7 +19,7 @@
             <input type="password" class="form-control" id="exampleInputPassword1" name="senha">
         </div>
         <p>Ainda não é cadastrado?<a href="formcad.php">Cadastrar-se</a></p>
-        <a href="recuperar_senha.php">Esqueceu a senha?</a> <br>
+        <a href="form_recuperar_senha.php">Esqueceu a senha?</a> <br>
         <input type="submit" class="btn btn-primary" value ="Logar">
     </div>
     </form>
