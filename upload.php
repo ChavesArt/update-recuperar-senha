@@ -41,16 +41,13 @@ if ($fezUpload == true) {
     // se for uma alteração de arquivo
     $id_usuario = $_SESSION['id_usuario'];
     $novoArquivo = $_POST['nome_arquivo'];
-    $apagou = unlink(__DIR__ . $pastaDestino . $_POST['nome_arquivo']);
-    if ($apagou == true) {
-        $sql = "UPDATE  usuario  SET  arquivo = '$nomeArquivo.$extensao'  WHERE id_usuario = $id_usuario ";
-        $resultado2 = mysqli_query($conexao, $sql);
-        if ($resultado2 == false) {
-            echo "Erro ao alterar o arquivo do banco de dados.";
-            die();
-        }
-    } else {
-        echo "Erro ao alterar o arquivo antigo.";
+    if ($novoArquivo != "user.png") {
+        $apagou = unlink(__DIR__ . $pastaDestino . $_POST['nome_arquivo']);
+    }
+    $sql = "UPDATE  usuario  SET  arquivo = '$nomeArquivo.$extensao'  WHERE id_usuario = $id_usuario ";
+    $resultado2 = mysqli_query($conexao, $sql);
+    if ($resultado2 == false) {
+        echo "Erro ao alterar o arquivo do banco de dados.";
         die();
     }
 }

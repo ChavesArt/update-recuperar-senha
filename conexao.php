@@ -9,7 +9,7 @@
  */
 function conectar()
 {
-    include "config.php";
+    require_once "config.php";
     $conexao = mysqli_connect(
         $config['host'],
         $config['user'],

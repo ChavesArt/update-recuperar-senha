@@ -63,7 +63,7 @@ try {
     $mail->Body = 'Olá!<br>
         Você solicitou a recuperação da sua conta no nosso sistema.
         Para isso, clique no link abaixo para realizar a troca de senha:<br>
-        <a href="' . $_SERVER['SERVER_NAME'] . '/recuperar-senha/nova-senha.php?email='
+        <a href="' . $_SERVER['SERVER_NAME'] . '/update-recuperar-senha/nova_senha.php?email='
         . $usuario['email'] . '&token=' . $token .
         '">Clique aqui para recuperar o acesso à sua conta!</a><br>
         <br>
@@ -78,7 +78,7 @@ try {
     $data = new DateTime('now');
     $agora = $data->format('Y-m-d H:i:s');
 
-    $sql2 = "INSERT INTO `recuperar-senha` 
+    $sql2 = "INSERT INTO `recuperar_senha` 
              (email, token, data_criacao, usado)
              VALUES ('" . $usuario['email'] . "', '$token', 
              '$agora', 0)";

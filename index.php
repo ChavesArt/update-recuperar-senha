@@ -7,8 +7,19 @@ if (!isset($_SESSION['email'])) {
   include "conexao.php";
   $conexao = conectar();
   $email = $_SESSION['email'];
-  $sql ="SELECT * FROM  usuario where email= '$email'";
+  $sql ="SELECT * FROM  usuario where email = '$email'";
   $arquivos = executarSQL($conexao,$sql); 
+
+  $dados = mysqli_fetch_assoc($arquivos);
+
+  if ($dados == null){
+    header ("location: login.php");
+  }
+
+  
+                $arq = $dados['arquivo'];
+                $nome = $dados['nome'];
+                $id = $dados['id_usuario'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -33,8 +44,7 @@ if (!isset($_SESSION['email'])) {
   
         
               <?php 
-              $dados = mysqli_fetch_assoc($arquivos);
-                $arq = $dados['arquivo'];
+              
         
                 echo "<tr>"; // iniciar a linha
                 echo "<td><img src='uploads/$arq' width='170px' height='170px'></td>"; // exibe imagem
@@ -50,8 +60,11 @@ if (!isset($_SESSION['email'])) {
                 <hr class="mt-0 mb-4">
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
-                    <h6>Email</h6>
-                    <p class="text-muted">info@example.com</p>
+                    <h6>Nome</h6>
+                    <?php 
+              echo "$nome";
+            
+              ?>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Phone</h6>
@@ -62,18 +75,13 @@ if (!isset($_SESSION['email'])) {
                 <hr class="mt-0 mb-4">
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
-                    <h6>Recent</h6>
-                    <p class="text-muted">Lorem ipsum</p>
+                    <h6>Sair</h6>
+                    <a href="logout.php">DESLOGAR-SE</a>
                   </div>
                   <div class="col-6 mb-3">
-                    <h6>Most Viewed</h6>
-                    <p class="text-muted">Dolor sit amet</p>
+                    <h6>DELETAR PERFIL</h6>
+                   <?php echo "<a href='deletar_perfil.php'>DELETAR PERFIL?</a>"; ?>
                   </div>
-                </div>
-                <div class="d-flex justify-content-start">
-                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
                 </div>
               </div>
             </div>
@@ -83,53 +91,6 @@ if (!isset($_SESSION['email'])) {
     </div>
   </div>
 </section>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        Selecione o arquivo:
-        <input type="file" name="arquivo"><br>
-        <input type="submit" value="Enviar">
-    </form>
-    <br><br>
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2">Arquivo</th>
-                <th colspan="2">Opções</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-           $arq = $arquivo['arquivo'];
-                 foreach ($arquivos as $arquivo) {
-                echo "<tr>"; // iniciar a linha
-                echo "<td><img src='uploads/$arq' width='100px' height='100px'></td>"; // exibe imagem
-                echo "<td><a href='uploads/$arq'>$arq</a></td>"; // 1ª coluna com o nome do arquivo
-                echo "<td>"; // iniciar a 2ª coluna
-                echo "<a "; // abriu o link (abriu a tag a)
-                echo "href='alterar.php?arquivo=$arq'>"; // inseriu o link
-                echo "Alterar"; // imprimiu o texto da tag a
-                echo "</a>"; // fechei a tag a (fechei o link)
-                echo "</td>"; // fechei a 2ª coluna
-                echo "<td>"; // abri a 3ª coluna
-                echo "<button "; // abrir o botão
-                echo "onclick="; // criou o atributo onclick
-                echo "'excluir(\"$arq\");'>"; // chamamos a função excluir
-                echo "Excluir"; // mostrar o texto do botão
-                echo "</button>"; // fechar o botão
-                echo "</td>"; // fechar a 3ª coluna
-                echo "</tr>"; // fechar a linha
-            }
-            ?>
-        </tbody>
-    </table>
-
-    <script>
-        function excluir(nome_arquivo) {
-            let deletar = confirm("Você tem certeza que deseja excluir o arquivo " + nome_arquivo + "?");
-            if (deletar == true) {
-                window.location.href = "deletar.php?arquivo=" + nome_arquivo;
-            }
-        }
-    </script>
 </body>
 
 </html>
