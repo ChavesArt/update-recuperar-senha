@@ -5,6 +5,6 @@ $config = [
     'user' => 'root',
     'pass' => '',
     'db'   => 'up_recuperar_senha',
-    'email' => '',
-    'senha_email' => ''
+    'email' => 'chavesarthur61@gmail.com',
+    'senha_email' => 'pwdciwdkuadtcpbu'
 ];
